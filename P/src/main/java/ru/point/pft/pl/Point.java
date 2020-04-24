@@ -1,4 +1,4 @@
-import java.sql.SQLOutput;
+package ru.point.pft.pl;
 
 public class Point {
 
