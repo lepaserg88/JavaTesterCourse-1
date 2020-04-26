@@ -1,4 +1,4 @@
-package ru.point.pft.pl;
+package ru.point.pft.addressbook;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

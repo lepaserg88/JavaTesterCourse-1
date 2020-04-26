@@ -1,4 +1,4 @@
-package ru.point.pft.pl;
+package ru.point.pft.addressbook;
 
 public class P {
 
