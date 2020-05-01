@@ -3,6 +3,7 @@ package ru.point.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class HelperBase {
   protected WebDriver wd;
@@ -30,4 +31,7 @@ public class HelperBase {
     }
   }
 
+  protected WebElement getElement() {
+    return wd.findElement(By.cssSelector("div.msgbox"));
+  }
 }
