@@ -11,7 +11,7 @@ public class CreateNewUser extends TestBase{
     app.addNew();
     app.contactInformation(new ContactData("ФИО", "ФИО", "79899999999", "test@test.test"));
     app.submitContact();
-    app.clickHomePage();
+    app.getNavigationHelper().clickHomePage();
   }
 
 }
