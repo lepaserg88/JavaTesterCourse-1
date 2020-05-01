@@ -1,11 +1,10 @@
-package ru.point.pft.addressbook;
+package ru.point.pft.addressbook.tests;
 
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
-import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import ru.point.pft.addressbook.ContactData;
+import ru.point.pft.addressbook.model.ContactData;
 
 public class CreateNewUser {
   private WebDriver wd;
