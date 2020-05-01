@@ -1,4 +1,4 @@
-package com.example.tests;
+package ru.point.pft.addressbook;
 
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
@@ -9,15 +9,12 @@ import ru.point.pft.addressbook.ContactData;
 
 public class CreateNewUser {
   private WebDriver wd;
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
     wd = new FirefoxDriver();
-    baseUrl = "https://www.google.com/";
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    wd.get("http://localhost/addressbook/");
     login("admin", "secret");
   }
 
@@ -74,10 +71,6 @@ public class CreateNewUser {
     logout();
     wd.findElement(By.name("user"));
     wd.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 
   private void logout() {
@@ -99,21 +92,6 @@ public class CreateNewUser {
       return true;
     } catch (NoAlertPresentException e) {
       return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = wd.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
     }
   }
 }
