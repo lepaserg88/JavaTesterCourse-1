@@ -8,9 +8,9 @@ public class CreateNewUser extends TestBase{
   @Test
   public void testCreateNewUser() throws Exception {
 
-    app.addNew();
-    app.contactInformation(new ContactData("ФИО", "ФИО", "79899999999", "test@test.test"));
-    app.submitContact();
+    app.getUserHelper().addNew();
+    app.getUserHelper().contactInformation(new ContactData("ФИО", "ФИО", "79899999999", "test@test.test"));
+    app.getUserHelper().submitContact();
     app.getNavigationHelper().clickHomePage();
   }
 
