@@ -55,4 +55,13 @@ public class UserHelper extends HelperBase {
     getElement();
   }
 
+  public void createUser(ContactData data, boolean b) {
+    addNew();
+    contactInformation(new ContactData("ФИО", "ФИО", "79899999999", "test@test.test", "test1"), true);
+    submitContact();
+  }
+
+  public boolean isThereAUser() {
+    return isElementPresent(By.name("selected[]"));
+  }
 }

@@ -1,5 +1,5 @@
 package ru.point.pft.addressbook.appmanager;
-
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
 
 public class HelperBase {
