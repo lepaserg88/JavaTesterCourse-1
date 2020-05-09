@@ -9,7 +9,7 @@ public class UserModification extends TestBase{
   public void testUserModification(){
 
     app.getUserHelper().redactUser();
-    app.getUserHelper().contactInformation(new ContactData("Иван", "Иванович", "79899999988", "test@test.test"));
+    app.getUserHelper().contactInformation(new ContactData("Иван", "Иванович", "79899999988", "test@test.test", null), false);
     app.getUserHelper().updateUser();
 
   }

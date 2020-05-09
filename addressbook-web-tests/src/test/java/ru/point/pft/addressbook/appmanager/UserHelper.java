@@ -2,7 +2,8 @@ package ru.point.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.point.pft.addressbook.model.ContactData;
 
 public class UserHelper extends HelperBase {
@@ -15,11 +16,17 @@ public class UserHelper extends HelperBase {
     wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
   }
 
-  public void contactInformation(ContactData contactData) {
+  public void contactInformation(ContactData contactData, boolean creation) {
     type(By.name("firstname"),contactData.getFirstname());
     type(By.name("lastname"),contactData.getLastname());
     type(By.name("mobile"),contactData.getMobile());
     type(By.name("email"),contactData.getEmail());
+
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public void addNew() {
