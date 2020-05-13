@@ -59,9 +59,16 @@ public class UserHelper extends HelperBase {
     addNew();
     contactInformation(new ContactData("ФИО", "ФИО", "79899999999", "test@test.test", "test1"), true);
     submitContact();
-  }
+    }
 
   public boolean isThereAUser() {
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public void returnToHomePage() {
+    if (isElementPresent(By.name("MainForm"))) {
+      return;
+    }
+    click(By.linkText("home page"));
   }
 }
