@@ -71,4 +71,8 @@ public class UserHelper extends HelperBase {
     }
     click(By.linkText("home page"));
   }
+
+  public int getUserCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
 }
