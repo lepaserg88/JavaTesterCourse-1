@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.point.pft.addressbook.model.ContactData;
 
+import java.util.List;
+
 public class DeleteUser  extends TestBase{
 
   @Test
@@ -12,12 +14,13 @@ public class DeleteUser  extends TestBase{
     app.getUserHelper().createUser(new ContactData("ФИО", "ФИО", "79899999999", "test@test.test", "test1"), true);
     app.getUserHelper().returnToHomePage();
     }
-    int before = app.getUserHelper().getUserCount();
+    List<ContactData> before = app.getUserHelper().getUserList();
     app.getUserHelper().selectUser();
     app.getUserHelper().deleteUser();
     app.getUserHelper().accept();
-    int after = app.getUserHelper().getUserCount();
-    Assert.assertEquals(after, before - 1);
+    app.getUserHelper().returnToHomePage();
+    List<ContactData> after = app.getUserHelper().getUserList();
+    Assert.assertEquals(after.size(), before.size() - 1);
   }
 
 }

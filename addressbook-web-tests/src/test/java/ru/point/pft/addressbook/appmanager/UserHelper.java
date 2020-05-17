@@ -2,9 +2,14 @@ package ru.point.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.point.pft.addressbook.model.ContactData;
+import ru.point.pft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserHelper extends HelperBase {
 
@@ -69,10 +74,17 @@ public class UserHelper extends HelperBase {
     if (isElementPresent(By.name("MainForm"))) {
       return;
     }
-    click(By.linkText("home page"));
+    click(By.linkText("home"));
   }
 
-  public int getUserCount() {
-    return wd.findElements(By.name("selected[]")).size();
+  public List<ContactData> getUserList() {
+    List<ContactData> users = new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element: elements) {
+      String name = element.getText();
+      ContactData user = new ContactData(name, null,null,null,null);
+      users.add(user);
+    }
+    return users;
   }
 }
