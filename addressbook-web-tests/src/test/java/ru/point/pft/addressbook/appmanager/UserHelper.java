@@ -38,8 +38,8 @@ public class UserHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public void selectUser() {
-    click(By.name("selected[]"));
+  public void selectUser(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteUser() {
@@ -51,8 +51,8 @@ public class UserHelper extends HelperBase {
     getElement();
   }
 
-  public void redactUser() {
-    click(By.xpath("//img[@alt='Edit']"));
+  public void redactUser(int index) {
+    wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
   }
 
   public void updateUser() {
@@ -82,7 +82,9 @@ public class UserHelper extends HelperBase {
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element: elements) {
       String name = element.getText();
-      ContactData user = new ContactData(name, null,null,null,null);
+      String secondName = element.getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      ContactData user = new ContactData(id, name, secondName,null,null,null);
       users.add(user);
     }
     return users;
