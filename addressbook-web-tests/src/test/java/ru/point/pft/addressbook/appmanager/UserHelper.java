@@ -81,8 +81,9 @@ public class UserHelper extends HelperBase {
     List<ContactData> users = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element: elements) {
-      String name = element.getText();
-      String secondName = element.getText();
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+      String name = cells.get(1).getText();
+      String secondName = cells.get(2).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       ContactData user = new ContactData(id, name, secondName,null,null,null);
       users.add(user);
