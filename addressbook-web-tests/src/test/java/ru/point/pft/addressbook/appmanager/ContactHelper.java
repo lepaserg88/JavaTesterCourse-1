@@ -11,9 +11,9 @@ import ru.point.pft.addressbook.model.GroupData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserHelper extends HelperBase {
+public class ContactHelper extends HelperBase {
 
-  public UserHelper(WebDriver wd) {
+  public ContactHelper(WebDriver wd) {
     super(wd);
   }
 
@@ -55,16 +55,30 @@ public class UserHelper extends HelperBase {
     wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
   }
 
-  public void updateUser() {
+  public void update() {
     click(By.name("update"));
     getElement();
   }
 
-  public void createUser(ContactData data, boolean b) {
+  public void create(ContactData data, boolean b) {
     addNew();
     contactInformation(new ContactData("ФИО", "ФИО", "79899999999", "test@test.test", "test1"), true);
     submitContact();
     }
+
+  public void modify(int index, ContactData contact) {
+    redactUser(index);
+    contactInformation(contact, false);
+    update();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectUser(index);
+    deleteUser();
+    accept();
+    returnToHomePage();
+  }
 
   public boolean isThereAUser() {
     return isElementPresent(By.name("selected[]"));
@@ -77,17 +91,17 @@ public class UserHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
-  public List<ContactData> getUserList() {
-    List<ContactData> users = new ArrayList<ContactData>();
+  public List<ContactData> list() {
+    List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element: elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
       String name = cells.get(1).getText();
       String secondName = cells.get(2).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData user = new ContactData(id, name, secondName,null,null,null);
-      users.add(user);
+      ContactData contact = new ContactData(id, name, secondName,null,null,null);
+      contacts.add(contact);
     }
-    return users;
+    return contacts;
   }
 }

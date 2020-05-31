@@ -5,18 +5,17 @@ import org.testng.annotations.Test;
 import ru.point.pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
-public class CreateNewUser extends TestBase{
+public class ContactCreationTests extends TestBase{
 
   @Test
   public void testCreateNewUser() {
-    List<ContactData> before = app.getUserHelper().getUserList();
+    List<ContactData> before = app.contact().list();
     ContactData contact = new ContactData("ФИО", "ФИО", "79899999999", "test@test.test", "test1");
-    app.getUserHelper().createUser(contact, true);
-    app.getNavigationHelper().clickHomePage();
-    List<ContactData> after = app.getUserHelper().getUserList();
+    app.contact().create(contact, true);
+    app.goTo().homePage();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     Comparator<? super ContactData> byId = (Comparator<ContactData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
