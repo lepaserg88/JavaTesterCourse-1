@@ -23,7 +23,6 @@ public class CreateNewUser extends TestBase{
     int max = after.stream().max(byId).get().getId();
     contact.setId(max);
     before.add(contact);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Assert.assertEquals(before, after);
   }
-
 }
