@@ -1,37 +1,23 @@
 package ru.point.pft.addressbook.model;
 
 public class ContactData {
-  private int id;
-  private final String firstname;
-  private final String lastname;
-  private final String mobile;
-  private final String email;
+  private int id = 0;
+  private String firstName;
+  private String lastName;
+  private String mobile;
+  private String email;
   private String group;
 
-  public ContactData(String firstname, String lastname, String mobile, String email, String group) {
-    this.id = 0;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobile = mobile;
-    this.email = email;
-    this.group = group;
+  public int getId() {
+    return id;
   }
 
-  public ContactData(int id, String firstname, String lastname, String mobile, String email, String group) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobile = mobile;
-    this.email = email;
-    this.group = group;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public String getFirstname() {
-    return firstname;
-  }
-
-  public String getLastname() {
-    return lastname;
+  public String getLastName() {
+    return lastName;
   }
 
   public String getMobile() {
@@ -46,12 +32,42 @@ public class ContactData {
     return group;
   }
 
+  public ContactData withId(int id) {
+    this.id = id;
+    return this;
+  }
+
+  public ContactData withFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+  public ContactData withLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  public ContactData withMobile(String mobile) {
+    this.mobile = mobile;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +
             "id='" + id + '\'' +
-            ", firstname='" + firstname + '\'' +
-            ", lastname='" + lastname + '\'' +
+            ", firstname='" + firstName + '\'' +
+            ", lastname='" + lastName + '\'' +
             '}';
   }
 
@@ -63,23 +79,15 @@ public class ContactData {
     ContactData that = (ContactData) o;
 
     if (id != that.id) return false;
-    if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-    return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+    if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+    return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
   }
 
   @Override
   public int hashCode() {
     int result = id;
-    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
-    result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     return result;
   }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public int getId() {
-    return id;
-  }
-  }
+}

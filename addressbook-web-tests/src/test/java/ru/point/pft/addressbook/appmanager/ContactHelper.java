@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.point.pft.addressbook.model.ContactData;
-import ru.point.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +21,8 @@ public class ContactHelper extends HelperBase {
   }
 
   public void contactInformation(ContactData contactData, boolean creation) {
-    type(By.name("firstname"),contactData.getFirstname());
-    type(By.name("lastname"),contactData.getLastname());
+    type(By.name("firstname"),contactData.getFirstName());
+    type(By.name("lastname"),contactData.getLastName());
     type(By.name("mobile"),contactData.getMobile());
     type(By.name("email"),contactData.getEmail());
 
@@ -62,7 +61,8 @@ public class ContactHelper extends HelperBase {
 
   public void create(ContactData data, boolean b) {
     addNew();
-    contactInformation(new ContactData("ФИО", "ФИО", "79899999999", "test@test.test", "test1"), true);
+    contactInformation(new ContactData().
+            withFirstName("ФИО").withLastName("ФИО").withMobile("79899999999").withEmail("test@test.test").withGroup("test1"), true);
     submitContact();
     }
 
@@ -96,10 +96,10 @@ public class ContactHelper extends HelperBase {
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element: elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
-      String name = cells.get(1).getText();
-      String secondName = cells.get(2).getText();
+      String firstName = cells.get(1).getText();
+      String lastName = cells.get(2).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id, name, secondName,null,null,null);
+      ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName);
       contacts.add(contact);
     }
     return contacts;
