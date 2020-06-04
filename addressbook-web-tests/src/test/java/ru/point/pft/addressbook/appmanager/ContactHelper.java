@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.point.pft.addressbook.model.ContactData;
+import ru.point.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -37,8 +37,8 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public void selectUser(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  public void selectUserById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void deleteUser() {
@@ -50,8 +50,8 @@ public class ContactHelper extends HelperBase {
     getElement();
   }
 
-  public void redactUser(int index) {
-    wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+  public void redactUserById(int id) {
+    wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
   }
 
   public void update() {
@@ -66,15 +66,15 @@ public class ContactHelper extends HelperBase {
     submitContact();
     }
 
-  public void modify(int index, ContactData contact) {
-    redactUser(index);
+  public void modify(ContactData contact) {
+    redactUserById(contact.getId());
     contactInformation(contact, false);
     update();
     returnToHomePage();
   }
 
-  public void delete(int index) {
-    selectUser(index);
+  public void delete(ContactData contact) {
+    selectUserById(contact.getId());
     deleteUser();
     accept();
     returnToHomePage();
@@ -91,8 +91,8 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element: elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
