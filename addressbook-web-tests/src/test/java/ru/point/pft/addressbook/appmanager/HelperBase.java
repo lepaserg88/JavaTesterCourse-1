@@ -2,6 +2,8 @@ package ru.point.pft.addressbook.appmanager;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
 
+import java.io.File;
+
 public class HelperBase {
   protected WebDriver wd;
 
@@ -23,6 +25,12 @@ public class HelperBase {
       }
     }
   }
+
+  public void attach(By locator, File file) {
+    if (file !=null) {
+      wd.findElement(locator).sendKeys(file.getAbsolutePath());
+      }
+    }
 
   private boolean isAlertPresent() {
     try {

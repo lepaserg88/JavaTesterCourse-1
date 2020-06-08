@@ -8,6 +8,7 @@ import org.testng.Assert;
 import ru.point.pft.addressbook.model.ContactData;
 import ru.point.pft.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -25,6 +26,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("lastname"),contactData.getLastName());
     type(By.name("mobile"),contactData.getMobile());
     type(By.name("email"),contactData.getEmail());
+    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -66,7 +68,8 @@ public class ContactHelper extends HelperBase {
   public void create(ContactData data, boolean b) {
     addNew();
     contactInformation(new ContactData().
-            withFirstName("ФИО").withLastName("ФИО").withMobile("79899999999").withEmail("test@test.test").withGroup("test1"), true);
+            withFirstName("Мяу").withLastName("Мяу").withMobile("79899999999").
+            withEmail("test@test.test").withGroup("test1").withPhoto(new File("src\\test\\resources\\1.jpg")), true);
     submitContact();
     contactCache = null;
     }
