@@ -43,7 +43,7 @@ public class ApplicationManager {
 
   public void stop() {
     sessionHelper.logout();
-    //wd.findElement(By.name("user"));
+    wd.findElement(By.name("user"));
     wd.quit();
   }
 
