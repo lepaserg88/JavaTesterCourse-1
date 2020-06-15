@@ -9,10 +9,8 @@ import com.thoughtworks.xstream.XStream;
 import ru.point.pft.addressbook.model.ContactData;
 import ru.point.pft.addressbook.model.GroupData;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,9 +71,12 @@ public class ContactDataGenerator {
   private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
     XStream xStream = new XStream();
     xStream.processAnnotations(GroupData.class);
-    String xml = xStream.toXML(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
+    //String xml = xStream.toXML(contacts);
+    OutputStream outputStream = new FileOutputStream(file);
+    Writer writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
+    writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+
+    xStream.toXML(contacts, writer);
     writer.close();
   }
 
