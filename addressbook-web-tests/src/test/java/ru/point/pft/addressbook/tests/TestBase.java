@@ -9,7 +9,7 @@ import ru.point.pft.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-  protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+  protected static final ApplicationManager app = new ApplicationManager(BrowserType.IE);
 
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {

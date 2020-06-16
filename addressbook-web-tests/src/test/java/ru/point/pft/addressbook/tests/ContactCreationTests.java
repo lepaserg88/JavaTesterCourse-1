@@ -60,7 +60,7 @@ public class ContactCreationTests extends TestBase{
     while (line !=null) {
       String[] split = line.split(";");
       list.add(new Object[] {new ContactData().withFirstName(split[0]).withLastName(split[1]).
-              withAddress(split[2]).withMobile(split[3]).withEmail(split[4])});
+              withAddress(split[2]).withMobile(split[3]).withEmail(split[4]).withGroup(split[5])});
       line = reader.readLine();
     };
     return list.iterator();

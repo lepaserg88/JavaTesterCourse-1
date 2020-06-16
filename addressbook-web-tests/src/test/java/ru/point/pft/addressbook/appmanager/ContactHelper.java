@@ -26,13 +26,15 @@ public class ContactHelper extends HelperBase {
     type(By.name("lastname"),contactData.getLastName());
     type(By.name("mobile"),contactData.getMobile());
     type(By.name("email"),contactData.getEmail());
+    type(By.name("address"),contactData.getAddress());
+    //type(By.name("group"),contactData.getGroup());
     attach(By.name("photo"), contactData.getPhoto());
-
+/*
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
+    } */
   }
 
   public void addNew() {
@@ -65,11 +67,14 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public void create(ContactData data, boolean b) {
+  public void create(ContactData contact, boolean b) {
     addNew();
+    contactInformation(contact, true);
+    /*
     contactInformation(new ContactData().
             withFirstName("Мяу").withLastName("Мяу").withMobile("79899999999").
             withEmail("test@test.test").withGroup("test1").withPhoto(new File("src\\test\\resources\\1.jpg")), true);
+    */
     submitContact();
     contactCache = null;
     }
