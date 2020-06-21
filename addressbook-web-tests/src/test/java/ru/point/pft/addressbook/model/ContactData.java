@@ -5,14 +5,12 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.File;
 
 @XStreamAlias("contact")
 @Entity
+@Table(name = "addressbook")
 public class ContactData {
 
   @XStreamOmitField
@@ -52,7 +50,7 @@ public class ContactData {
   @Transient
   private String group;
   @Expose
-  @Column(name = "address")
+  @Transient
   private String address;
   @Column(name = "photo")
   @Type(type = "text")

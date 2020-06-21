@@ -74,7 +74,7 @@ public class ContactCreationTests extends TestBase{
               //withFirstName("Мяу").withLastName("Мяу").withMobile("79899999999").withEmail("test@test.test").withGroup("test1").
              // withHomePhone("111").withWorkPhone("333").withAddress("Пермь").
              // withEmail2("test2@test.test").withEmail3("test3@test.test").withPhoto(new File("src\\test\\resources\\1.jpg"));
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     //File photo = new File("src\\test\\resources\\1.jpg");
     /*
     ContactData contact = new ContactData().
@@ -85,7 +85,7 @@ public class ContactCreationTests extends TestBase{
     app.contact().create(contact, true);
     app.goTo().homePage();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
