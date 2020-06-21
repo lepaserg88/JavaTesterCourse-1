@@ -63,19 +63,17 @@ public class ContactDataGenerator {
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json  = gson.toJson(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(json);
+    }
   }
 
   private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
     XStream xStream = new XStream();
     xStream.processAnnotations(GroupData.class);
-    //String xml = xStream.toXML(contacts);
     OutputStream outputStream = new FileOutputStream(file);
     Writer writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
     writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
-
     xStream.toXML(contacts, writer);
     writer.close();
   }
