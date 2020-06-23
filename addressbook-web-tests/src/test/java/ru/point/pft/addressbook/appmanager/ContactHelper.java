@@ -7,8 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.point.pft.addressbook.model.ContactData;
 import ru.point.pft.addressbook.model.Contacts;
+import ru.point.pft.addressbook.model.GroupData;
 
-import java.io.File;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -27,14 +27,15 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"),contactData.getMobile());
     type(By.name("email"),contactData.getEmail());
     type(By.name("address"),contactData.getAddress());
-   // type(By.name("group"),contactData.getGroup());
-    //attach(By.name("photo"), contactData.getPhoto());
-/*
-    if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }*/
+
+  if (creation)  {
+    if (contactData.getGroups().size() > 0) {
+      Assert.assertTrue(contactData.getGroups().size() == 1);
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+  }  else {
+    Assert.assertFalse(isElementPresent(By.name("new_group")));
+  }
+  }
   }
 
   public void addNew() {
@@ -67,14 +68,9 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public void create(ContactData contact, boolean b) {
+  public void create(ContactData contact) {
     addNew();
-    contactInformation(contact, true);
-    /*
-    contactInformation(new ContactData().
-            withFirstName("Мяу").withLastName("Мяу").withMobile("79899999999").
-            withEmail("test@test.test").withGroup("test1").withPhoto(new File("src\\test\\resources\\1.jpg")), true);
-    */
+    contactInformation(contact, false);
     submitContact();
     contactCache = null;
     }
@@ -149,4 +145,23 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
   }
 
+  public void addContactToGroup(ContactData contact, GroupData group) {
+    selectUserById(contact.getId());
+    new Select(wd.findElement(By.name("to_group"))).selectByValue(group.getId().toString());
+    AddToGroup();
+  }
+
+  public void deleteContactFromGroup(ContactData contact, GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByValue(group.getId().toString());
+    selectUserById(contact.getId());
+    DeleteFromGroup();
+  }
+
+  public void AddToGroup() {
+    wd.findElement(By.name("add")).click();
+  }
+
+  private void DeleteFromGroup() {
+    wd.findElement(By.name("remove")).click();
+  }
 }

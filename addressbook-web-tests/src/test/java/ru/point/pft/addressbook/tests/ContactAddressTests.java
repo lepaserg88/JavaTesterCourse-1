@@ -13,9 +13,9 @@ public class ContactAddressTests extends TestBase {
   public void ensurePreconditionsContact() {
     if (app.contact().all().size() == 0){
       app.contact().create(new ContactData().
-              withFirstName("ФИО").withLastName("ФИО").withMobile("79899999999").withGroup("test1").
+              withFirstName("ФИО").withLastName("ФИО").withMobile("79899999999").
               withHomePhone("111").withWorkPhone("333").withAddress("Пермь").
-              withEmail("test@test.test").withEmail2("test2@test.test").withEmail3("test3@test.test"), true);
+              withEmail("test@test.test").withEmail2("test2@test.test").withEmail3("test3@test.test"));
     }
     app.contact().returnToHomePage();
   }

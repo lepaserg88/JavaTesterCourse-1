@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.point.pft.addressbook.model.ContactData;
 import ru.point.pft.addressbook.model.Contacts;
 import ru.point.pft.addressbook.model.GroupData;
+import ru.point.pft.addressbook.model.Groups;
 
 
 import java.io.*;
@@ -60,7 +61,7 @@ public class ContactCreationTests extends TestBase{
     while (line !=null) {
       String[] split = line.split(";");
       list.add(new Object[] {new ContactData().withFirstName(split[0]).withLastName(split[1]).
-              withAddress(split[2]).withMobile(split[3]).withEmail(split[4]).withGroup(split[5])});
+              withAddress(split[2]).withMobile(split[3]).withEmail(split[4])});
       line = reader.readLine();
     };
     return list.iterator();
@@ -82,7 +83,7 @@ public class ContactCreationTests extends TestBase{
             withHomePhone("111").withWorkPhone("333").withAddress("Пермь").
             withEmail2("test2@test.test").withEmail3("test3@test.test").withPhoto(new File("src\\test\\resources\\1.jpg"));
     */
-    app.contact().create(contact, true);
+    app.contact().create(contact);
     app.goTo().homePage();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.db().contacts();
