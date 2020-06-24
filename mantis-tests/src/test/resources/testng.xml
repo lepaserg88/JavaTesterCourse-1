@@ -6,6 +6,7 @@
             <class name="ru.point.pft.mantis.tests.LoginTests"/>
             <class name="ru.point.pft.mantis.tests.RegistrationTests"/>
             <class name="ru.point.pft.mantis.tests.ChangeUserPassword"/>
+            <class name="ru.point.pft.mantis.tests.SoapTests"/>
         </classes>
     </test>
 </suite>

@@ -20,6 +20,11 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'org.hibernate:hibernate-core:5.4.14.Final'
     compile 'com.thoughtworks.xstream:xstream:1.4.8'
+    implementation 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
+    implementation 'org.apache.httpcomponents:fluent-hc:4.5.12'
+    implementation 'com.jayway.restassured:rest-assured:2.9.0'
 }
 
 tasks.withType(JavaCompile) {

@@ -9,6 +9,7 @@ import ru.point.pft.mantis.model.UserData;
 import ru.point.pft.mantis.model.Users;
 
 import javax.mail.MessagingException;
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class ChangeUserPassword extends TestBase {
   }
 
   @Test
-  public void testChangePassword() throws IOException, MessagingException {
+  public void testChangePassword() throws IOException, MessagingException, ServiceException {
+    skipIfNotFixed(0000001);
     Users users = app.db().users();
     UserData user = users.iterator().next();
     String email = user.getEmail();

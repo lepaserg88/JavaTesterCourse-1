@@ -6,6 +6,8 @@ import ru.point.pft.addressbook.model.ContactData;
 import ru.point.pft.addressbook.model.GroupData;
 import ru.point.pft.addressbook.model.Groups;
 
+import java.io.IOException;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -29,7 +31,8 @@ public class AddContactToGroup extends TestBase {
   }
 
   @Test
-  public void TestAddContactToGroup() {
+  public void TestAddContactToGroup() throws IOException {
+    skipIfNotFixedInBugify(1);
     Groups groups = app.db().groups();
     ContactData addedToGroupContact =
             app.db().contacts().stream().filter((s) -> (s.getGroups().size() < groups.size())).findAny().get();
