@@ -32,7 +32,7 @@ public class AddContactToGroup extends TestBase {
 
   @Test
   public void TestAddContactToGroup() throws IOException {
-    skipIfNotFixedInBugify(1);
+    skipIfNotFixedInBugify(100);
     Groups groups = app.db().groups();
     ContactData addedToGroupContact =
             app.db().contacts().stream().filter((s) -> (s.getGroups().size() < groups.size())).findAny().get();

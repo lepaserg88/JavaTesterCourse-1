@@ -60,16 +60,19 @@ public class TestBase {
   }
 
   private Executor getExecutor() {
-    return Executor.newInstance().auth("19ce16e741b7cc860c7418001642e2b4","");
+    return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490","");
   }
 
   public boolean isBugifyIssueOpen(int issueId) throws IOException {
-    String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues/" + issueId + ".json"))
+    String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues/" + issueId + ".json"))
             .returnContent().asString();
     JsonElement parsedIssue = new JsonParser().parse(json);
     System.out.println(parsedIssue);
-    String issueStatus  = parsedIssue.getAsJsonObject().get("state_name").getAsString();
-    if (issueStatus.equals("Deleted")) {
+    String issueStatus  = parsedIssue.getAsJsonObject().get("issues")
+            .getAsJsonArray().get(0).getAsJsonObject().get("state_name")
+            .toString().replace("\"", "");
+    System.out.println(issueStatus);
+    if (issueStatus.equals("Resolved")) {
       return false;
     }
     return true;

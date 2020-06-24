@@ -4,6 +4,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.point.pft.addressbook.model.ContactData;
 
+import java.io.IOException;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -21,7 +23,8 @@ public class ContactAddressTests extends TestBase {
   }
 
   @Test
-  public void testContactPhones() {
+  public void testContactAddress() throws IOException {
+    skipIfNotFixedInBugify(1);
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
