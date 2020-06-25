@@ -17,8 +17,8 @@ public class GroupCreationTests {
   @Test
   public void testGroupCreation() throws Exception {
     double k = 0;
-    for (int i = 0; i < 70000; i++) {
-      for (int j = 0; j < 70000; j++) {
+    for (int i = 0; i < 90000; i++) {
+      for (int j = 0; j < 90000; j++) {
         k = (k + 1)*1.00000001;
       }
     }
