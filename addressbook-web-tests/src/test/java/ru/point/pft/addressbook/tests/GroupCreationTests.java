@@ -16,6 +16,12 @@ public class GroupCreationTests {
 */
   @Test
   public void testGroupCreation() throws Exception {
+    int k = 0;
+    for (int i = 0; i < 10000000; i++) {
+      for (int j = 0; j < 10000000; j++) {
+        k = k + 1;
+      }
+    }
     System.out.println("Test");
     /*
     wd.get("http://localhost/addressbook/");
