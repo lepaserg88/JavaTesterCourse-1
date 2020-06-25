@@ -7,10 +7,10 @@ import ru.point.pft.addressbook.model.GroupData;
 public class GroupModificationTests  {
   @Test
   public void testGroupModification() {
-    int k = 0;
-    for (int i = 0; i < 10000000; i++) {
-      for (int j = 0; j < 10000000; j++) {
-        k = k + 1;
+    double k = 0;
+    for (int i = 0; i < 70000; i++) {
+      for (int j = 0; j < 70000; j++) {
+        k = (k + 1)*1.00000001;
       }
     }
     System.out.println("Test");
