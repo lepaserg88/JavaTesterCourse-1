@@ -1,88 +1,97 @@
 package ru.point.pft.addressbook.tests;
-
-import org.openqa.selenium.remote.BrowserType;
-import org.testng.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import ru.point.pft.addressbook.appmanager.ApplicationManager;
-import ru.point.pft.addressbook.model.ContactData;
-import ru.point.pft.addressbook.model.Contacts;
-import ru.point.pft.addressbook.model.GroupData;
-import ru.point.pft.addressbook.model.Groups;
 
-import java.io.IOException;
-import java.util.stream.Collectors;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import org.apache.http.client.fluent.Executor;
-import org.apache.http.client.fluent.Request;
-import org.testng.SkipException;
-import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class TestBase {
+  private WebDriver wd;
 
-  protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
-
-  @BeforeSuite(alwaysRun = true)
+  @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
-    app.init();
+    wd = new FirefoxDriver();
+    wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    wd.get("http://localhost/addressbook/");
+    login("admin", "secret");
   }
 
-  @AfterSuite(alwaysRun = true)
+  private void login(String username, String password) {
+    wd.findElement(By.name("user")).click();
+    wd.findElement(By.name("user")).clear();
+    wd.findElement(By.name("user")).sendKeys(username);
+    wd.findElement(By.name("pass")).click();
+    wd.findElement(By.name("pass")).clear();
+    wd.findElement(By.name("pass")).sendKeys(password);
+    wd.findElement(By.xpath("//input[@value='Login']")).click();
+  }
+
+  protected void returntoGroupPage() {
+    wd.findElement(By.linkText("groups")).click();
+  }
+
+  protected void submitGroupCreation() {
+    wd.findElement(By.name("submit")).click();
+  }
+/*
+  protected void fillGroupForm(GroupData groupData) {
+    wd.findElement(By.name("group_name")).click();
+    wd.findElement(By.name("group_name")).clear();
+    wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
+    wd.findElement(By.name("group_header")).click();
+    wd.findElement(By.name("group_header")).clear();
+    wd.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
+    wd.findElement(By.name("group_footer")).click();
+    wd.findElement(By.name("group_footer")).clear();
+    wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
+  }
+
+  protected void initGroupCreation() {
+    wd.findElement(By.name("new")).click();
+  }
+
+  protected void gotoGroupPage() {
+    wd.findElement(By.linkText("groups")).click();
+  }
+
+  @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
-    app.stop();
+    logout();
+    wd.findElement(By.name("user"));
+    wd.quit();
   }
 
-  public void verifyGroupListInUI() {
-    if (Boolean.getBoolean("verifyUI")) {
-      Groups dbGroups = app.db().groups();
-      Groups uiGroups = app.group().all();
-      assertThat(uiGroups, equalTo(dbGroups.stream().
-              map((g) -> new GroupData().withId(g.getId()).withName(g.getName())).
-              collect(Collectors.toSet())));
-    }
+  private void logout() {
+    wd.findElement(By.linkText("Logout")).click();
   }
 
-  public void verifyContactListInUI() {
-    if (Boolean.getBoolean("verifyUI")) {
-      Contacts dbContacts = app.db().contacts();
-      Contacts uiContacts = app.contact().all();
-      assertThat(uiContacts, equalTo(dbContacts.stream().
-              map((c) -> new ContactData().withId(c.getId()).withLastName(c.getLastName()).withFirstName(c.getFirstName())).
-              collect(Collectors.toSet())));
-    }
-  }
-
-  private Executor getExecutor() {
-    return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490","");
-  }
-
-  public boolean isBugifyIssueOpen(int issueId) throws IOException {
-    String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues/" + issueId + ".json"))
-            .returnContent().asString();
-    JsonElement parsedIssue = new JsonParser().parse(json);
-    System.out.println(parsedIssue);
-    String issueStatus  = parsedIssue.getAsJsonObject().get("issues")
-            .getAsJsonArray().get(0).getAsJsonObject().get("state_name")
-            .toString().replace("\"", "");
-    System.out.println(issueStatus);
-    if (issueStatus.equals("Resolved")) {
+  private boolean isElementPresent(By by) {
+    try {
+      wd.findElement(by);
+      return true;
+    } catch (NoSuchElementException e) {
       return false;
     }
-    return true;
   }
 
-  public void skipIfNotFixedInBugify(int issueId) throws IOException {
-    if (isBugifyIssueOpen(issueId)) {
-      throw new SkipException("Ignored because of issue " + issueId);
+  private boolean isAlertPresent() {
+    try {
+      wd.switchTo().alert();
+      return true;
+    } catch (NoAlertPresentException e) {
+      return false;
     }
   }
 
+  protected void deleteCreaatedGroups() {
+    wd.findElement(By.xpath("(//input[@name='delete'])[2]")).click();
+  }
 
+  protected void selectGroup() {
+    wd.findElement(By.name("selected[]")).click();
+  }*/
 }

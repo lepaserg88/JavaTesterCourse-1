@@ -103,7 +103,7 @@ public class ContactHelper extends HelperBase {
   }
 
   private Contacts contactCache = null;
-
+/*
   public Contacts all() {
     if (contactCache !=null) {
       return new Contacts(contactCache);
@@ -163,5 +163,5 @@ public class ContactHelper extends HelperBase {
 
   private void DeleteFromGroup() {
     wd.findElement(By.name("remove")).click();
-  }
+  }*/
 }
