@@ -8,8 +8,8 @@ public class GroupModificationTests  {
   @Test
   public void testGroupModification() {
     double k = 0;
-    for (int i = 0; i < 90000; i++) {
-      for (int j = 0; j < 90000; j++) {
+    for (int i = 0; i < 99000; i++) {
+      for (int j = 0; j < 99000; j++) {
         k = (k + 1)*1.00000001;
       }
     }
